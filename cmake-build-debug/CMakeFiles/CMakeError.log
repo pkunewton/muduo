@@ -1,0 +1,22 @@
+Determining if the function accept4 exists failed with the following output:
+Change Dir: E:/gitlab/muduo/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/MinGW/bin/mingw32-make.exe" "cmTC_d97b7/fast"
+C:/MinGW/bin/mingw32-make.exe -f CMakeFiles\cmTC_d97b7.dir\build.make CMakeFiles/cmTC_d97b7.dir/build
+mingw32-make.exe[1]: Entering directory 'E:/gitlab/muduo/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d97b7.dir/CheckFunctionExists.c.obj
+C:\MinGW\bin\gcc.exe   -DCHECK_FUNCTION_EXISTS=accept4   -o CMakeFiles\cmTC_d97b7.dir\CheckFunctionExists.c.obj   -c "D:\JetBrains\CLion 2017.3.1\bin\cmake\share\cmake-3.9\Modules\CheckFunctionExists.c"
+Linking C executable cmTC_d97b7.exe
+"D:\JetBrains\CLion 2017.3.1\bin\cmake\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_d97b7.dir\link.txt --verbose=1
+"D:\JetBrains\CLion 2017.3.1\bin\cmake\bin\cmake.exe" -E remove -f CMakeFiles\cmTC_d97b7.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\cmTC_d97b7.dir/objects.a @CMakeFiles\cmTC_d97b7.dir\objects1.rsp
+C:\MinGW\bin\gcc.exe  -DCHECK_FUNCTION_EXISTS=accept4    -Wl,--whole-archive CMakeFiles\cmTC_d97b7.dir/objects.a -Wl,--no-whole-archive  -o cmTC_d97b7.exe -Wl,--out-implib,libcmTC_d97b7.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_d97b7.dir\linklibs.rsp
+CMakeFiles\cmTC_d97b7.dir/objects.a(CheckFunctionExists.c.obj):CheckFunctionExists.c:(.text+0xc): undefined reference to `accept4'
+collect2.exe: error: ld returned 1 exit status
+CMakeFiles\cmTC_d97b7.dir\build.make:98: recipe for target 'cmTC_d97b7.exe' failed
+mingw32-make.exe[1]: *** [cmTC_d97b7.exe] Error 1
+mingw32-make.exe[1]: Leaving directory 'E:/gitlab/muduo/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:125: recipe for target 'cmTC_d97b7/fast' failed
+mingw32-make.exe: *** [cmTC_d97b7/fast] Error 2
+
+

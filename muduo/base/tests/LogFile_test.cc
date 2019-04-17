@@ -1,9 +1,13 @@
-#include <muduo/base/LogFile.h>
-#include <muduo/base/Logging.h>
+#include "muduo/base/LogFile.h"
+#include "muduo/base/Logging.h"
 
 #include <unistd.h>
 
+<<<<<<< HEAD
 boost::scoped_ptr<muduo::LogFile> g_logFile;
+=======
+std::unique_ptr<muduo::LogFile> g_logFile;
+>>>>>>> upstream/master
 
 void outputFunc(const char* msg, int len)
 {
@@ -17,8 +21,8 @@ void flushFunc()
 
 int main(int argc, char* argv[])
 {
-  char name[256];
-  strncpy(name, argv[0], 256);
+  char name[256] = { 0 };
+  strncpy(name, argv[0], sizeof name - 1);
   g_logFile.reset(new muduo::LogFile(::basename(name), 200*1000));
   muduo::Logger::setOutput(outputFunc);
   muduo::Logger::setFlush(flushFunc);

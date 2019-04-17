@@ -1,11 +1,18 @@
-#include <muduo/base/Logging.h>
-#include <muduo/net/EventLoop.h>
-#include <muduo/net/TcpServer.h>
-#include <examples/asio/chat/codec.h>
+#include "muduo/base/Logging.h"
+#include "muduo/net/EventLoop.h"
+#include "muduo/net/TcpServer.h"
+#include "examples/asio/chat/codec.h"
 
-#include <boost/bind.hpp>
 #include <stdio.h>
 #include <unistd.h>
+<<<<<<< HEAD
+=======
+
+using std::placeholders::_1;
+using std::placeholders::_2;
+using std::placeholders::_3;
+using muduo::get_pointer;
+>>>>>>> upstream/master
 
 bool g_tcpNoDelay = false;
 
@@ -30,7 +37,7 @@ int main(int argc, char* argv[])
   if (argc > 1)
   {
     uint16_t port = static_cast<uint16_t>(atoi(argv[1]));
-    g_tcpNoDelay = argc > 2 ? atoi(argv[2]) : 0;
+    g_tcpNoDelay = argc > 2 ? atoi(argv[2]) : false;
     int threadCount = argc > 3 ? atoi(argv[3]) : 0;
 
     LOG_INFO << "pid = " << getpid() << ", listen port = " << port;
@@ -38,11 +45,11 @@ int main(int argc, char* argv[])
     muduo::net::EventLoop loop;
     muduo::net::InetAddress listenAddr(port);
     muduo::net::TcpServer server(&loop, listenAddr, "PingPong");
-    LengthHeaderCodec codec(boost::bind(onStringMessage, &codec, _1, _2, _3));
+    LengthHeaderCodec codec(std::bind(onStringMessage, &codec, _1, _2, _3));
 
     server.setConnectionCallback(onConnection);
     server.setMessageCallback(
-        boost::bind(&LengthHeaderCodec::onMessage, &codec, _1, _2, _3));
+        std::bind(&LengthHeaderCodec::onMessage, &codec, _1, _2, _3));
 
     if (threadCount > 1)
     {

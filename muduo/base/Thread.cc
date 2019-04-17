@@ -3,14 +3,12 @@
 //
 // Author: Shuo Chen (chenshuo at chenshuo dot com)
 
-#include <muduo/base/Thread.h>
-#include <muduo/base/CurrentThread.h>
-#include <muduo/base/Exception.h>
-#include <muduo/base/Logging.h>
+#include "muduo/base/Thread.h"
+#include "muduo/base/CurrentThread.h"
+#include "muduo/base/Exception.h"
+#include "muduo/base/Logging.h"
 
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/weak_ptr.hpp>
+#include <type_traits>
 
 #include <errno.h>
 #include <stdio.h>
@@ -22,16 +20,6 @@
 
 namespace muduo
 {
-namespace CurrentThread
-{
-  __thread int t_cachedTid = 0;
-  __thread char t_tidString[32];
-  __thread int t_tidStringLength = 6;
-  __thread const char* t_threadName = "unknown";
-  const bool sameType = boost::is_same<int, pid_t>::value;
-  BOOST_STATIC_ASSERT(sameType);
-}
-
 namespace detail
 {
 
@@ -69,11 +57,15 @@ struct ThreadData
   pid_t* tid_;
   CountDownLatch* latch_;
 
-  ThreadData(const ThreadFunc& func,
+  ThreadData(ThreadFunc func,
              const string& name,
              pid_t* tid,
              CountDownLatch* latch)
+<<<<<<< HEAD
     : func_(func),
+=======
+    : func_(std::move(func)),
+>>>>>>> upstream/master
       name_(name),
       tid_(tid),
       latch_(latch)
@@ -125,10 +117,7 @@ void* startThread(void* obj)
   return NULL;
 }
 
-}
-}
-
-using namespace muduo;
+}  // namespace detail
 
 void CurrentThread::cacheTid()
 {
@@ -154,11 +143,12 @@ void CurrentThread::sleepUsec(int64_t usec)
 
 AtomicInt32 Thread::numCreated_;
 
-Thread::Thread(const ThreadFunc& func, const string& n)
+Thread::Thread(ThreadFunc func, const string& n)
   : started_(false),
     joined_(false),
     pthreadId_(0),
     tid_(0),
+<<<<<<< HEAD
     func_(func),
     name_(n),
     latch_(1)
@@ -172,14 +162,14 @@ Thread::Thread(ThreadFunc&& func, const string& n)
     joined_(false),
     pthreadId_(0),
     tid_(0),
+=======
+>>>>>>> upstream/master
     func_(std::move(func)),
     name_(n),
     latch_(1)
 {
   setDefaultName();
 }
-
-#endif
 
 Thread::~Thread()
 {
@@ -227,3 +217,4 @@ int Thread::join()
   return pthread_join(pthreadId_, NULL);
 }
 
+}  // namespace muduo
