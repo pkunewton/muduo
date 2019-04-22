@@ -43,17 +43,10 @@ TcpServer::~TcpServer()
 
   for (auto& item : connections_)
   {
-<<<<<<< HEAD
-    TcpConnectionPtr conn(it->second);
-    it->second.reset();
-    conn->getLoop()->runInLoop(
-      boost::bind(&TcpConnection::connectDestroyed, conn));
-=======
     TcpConnectionPtr conn(item.second);
     item.second.reset();
     conn->getLoop()->runInLoop(
       std::bind(&TcpConnection::connectDestroyed, conn));
->>>>>>> upstream/master
   }
 }
 
